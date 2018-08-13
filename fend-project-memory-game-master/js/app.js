@@ -6,7 +6,7 @@ let cards = [...card]
 let moves = 0;
 let counter = document.querySelector('.moves');
 const deck = document.getElementById('deck-card');
-let flippedCard = []; 
+let flippedCard = [];
 let matchedCard = document.getElementsByClassName('match');
 var interval;
 var timer = document.querySelector('.timer');
