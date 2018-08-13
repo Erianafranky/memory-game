@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
- let card = document.getElementsByClassName("card");
+let card = document.getElementsByClassName("card");
 let cards = [...card] 
 let moves = 0;
 let counter = document.querySelector('.moves');
@@ -11,7 +11,7 @@ let matchedCard = document.getElementsByClassName('match');
 var interval;
 var timer = document.querySelector('.timer');
 const stars = document.querySelectorAll('.fa-star');
-let starList = document.querySelectorAll('.stars li');
+//let starList = document.querySelectorAll('.stars li');
 let modal = document.getElementById('myModal');
 let closeicon = document.querySelector('.close');
 /*
@@ -107,8 +107,6 @@ function moveCounter() {
 
 function startTime() {
 	var second = 0, minute = 0, hour = 0;
- 	//var timer = document.querySelector('.timer');
- 	//var interval;
  	interval = setInterval(function() {
  		timer.innerHTML = hour+"hrs "+minute+"mins "+second+"secs";
  		second++;
@@ -143,10 +141,10 @@ function checkForMatch() {
 };
 
 function matched() {
-	flippedCard[0].classList.add('match')//, 'disabled');
-	flippedCard[1].classList.add('match')//, 'disabled');
-	flippedCard[0].classList.remove('show', 'open')//, 'no-event');
-	flippedCard[1].classList.remove('show', 'open')//, 'no-event');
+	flippedCard[0].classList.add('match');
+	flippedCard[1].classList.add('match');
+	flippedCard[0].classList.remove('show', 'open');
+	flippedCard[1].classList.remove('show', 'open');
 	flippedCard = [];
 };
 
@@ -163,7 +161,6 @@ function unmatched() {
 		setTimeout (function(){
 			flippedCard[0].classList.remove('show', 'open', 'unmatched');
 			flippedCard[1].classList.remove('show', 'open', 'unmatched');
-
 			enable();
 			flippedCard = [];
 		}, 1000);	
@@ -179,7 +176,6 @@ function enable() {
 }	
 
 function congratulations() {
-	//when the user clicks on <span> close the modal
 	if (matchedCard.length == 16) {
 		clearInterval(interval);
 		finalTime = timer.innerHTML;
@@ -187,7 +183,7 @@ function congratulations() {
 		modal.classList.add('show');
 		var starRating = document.querySelector('.stars').innerHTML;
 
-		document.getElementById("finalMove").innerHTML = moves;
+		document.getElementById("totalMove").innerHTML = moves;
         document.getElementById("starRating").innerHTML = starRating;
         document.getElementById("totalTime").innerHTML = finalTime;
 
@@ -197,19 +193,17 @@ function congratulations() {
 }
 
 function closeModal(){
-    closeicon.addEventListener("click", function(e){
+    closeicon.addEventListener("click", function(event){
         modal.classList.remove("show");
         startGame();
     });
 }
 
-
-// @desciption for user to play Again 
+//desciption for user to play Again 
 function playAgain(){
     modal.classList.remove("show");
     startGame();
 }
-
 	
 for (let i = 0; i < cards.length; i++) {
 	card = cards[i];
