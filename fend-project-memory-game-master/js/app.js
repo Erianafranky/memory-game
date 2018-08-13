@@ -11,7 +11,6 @@ let matchedCard = document.getElementsByClassName('match');
 var interval;
 var timer = document.querySelector('.timer');
 const stars = document.querySelectorAll('.fa-star');
-//let starList = document.querySelectorAll('.stars li');
 let modal = document.getElementById('myModal');
 let closeicon = document.querySelector('.close');
 /*
