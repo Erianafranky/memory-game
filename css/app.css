@@ -19,6 +19,7 @@ body {
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
+    font-size: 16px;
 }
 
 .container {
@@ -30,7 +31,6 @@ body {
 
 h1 {
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
 }
 
 /*
@@ -38,27 +38,26 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
+    width: 75%;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 10px 11px 26px 0 rgba(46, 61, 73, 0.5);
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin: 0 0 3em;
-    perspective: 1000px;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
+    height: 4rem;
+    width: 4rem;
+    margin: 0.3rem 0.3rem;
     background: #2e3d49;
     font-size: 0;
     color: #ffffff;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -110,7 +109,6 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
     margin-bottom: 10px;
 }
 
@@ -282,6 +280,42 @@ h1 {
     }
     100% {
         transform: translateX(0%);
+    }
+}
+
+
+/*Media queries */
+
+@media screen and (max-width: 300px) {
+    .deck {
+        width:85%;
+    }
+
+    .deck .card {
+        height: 4.7rem;
+        width:4.7rem;
+    }
+}
+
+/*for tablets and larger screens */
+
+@media screen and (min-width: 768px) {
+    .container {
+        font-size: 22px;
+    }
+
+    .deck {
+        width: 680px;
+        height: 700px;
+    }
+
+    .deck .card {
+        height: 130px;
+        width: 130px;
+    }
+
+    .modal-content {
+        width: 60%;
     }
 }
 
