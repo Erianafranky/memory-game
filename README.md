@@ -11,4 +11,10 @@ You can play the game here https://erianafranky.github.io/memory-game/
 - If the cards do not match, the cards will be closed
 - Match cards and use less moves and time to get a higher star rating.
 
+## Dependencies
+This project is built using Javascript, HTML and CSS styling. Its dependencies include:
+
+- Font awesome
+- Google fonts
+
 
