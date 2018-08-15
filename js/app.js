@@ -1,7 +1,6 @@
 /*
  * Create a list that holds all of your cards
  */
- let cardsMatched = 0;
 let card = document.getElementsByClassName("card");
 let cards = [...card] 
 let moves = 0;
@@ -14,7 +13,7 @@ var timer = document.querySelector('.timer');
 const stars = document.querySelectorAll('.fa-star');
 let modal = document.getElementById('myModal');
 let closeicon = document.querySelector('.close');
-let restartButton = document.querySelectorAll('.restart');
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -37,8 +36,8 @@ function shuffle(array) {
     return array;
 }
 
-//document.body.onload = startGame();
-window.addEventListener('load', startGame())
+document.body.onload = startGame();
+
 
 
 /*
@@ -52,6 +51,7 @@ window.addEventListener('load', startGame())
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+//Start a new game
 function startGame() {
 	cards = shuffle(cards);
  	for(let i = 0; i < cards.length; i++) {
@@ -79,6 +79,7 @@ function startGame() {
  	}
 }
 
+//counting the player's moves
 function moveCounter() {
 	moves++;
 	counter.innerHTML = moves;
@@ -107,6 +108,7 @@ function moveCounter() {
 	}
 }
 
+//function to add the game time
 function startTime() {
 	var second = 0, minute = 0, hour = 0;
  	interval = setInterval(function() {
@@ -123,10 +125,13 @@ function startTime() {
  	},1000)
  }
 
+//open and show class to display cards
 function displayCard() {
 	this.classList.add('show');
 	this.classList.add('open');
 	this.classList.add('disabled');
+	
+	//add opened cards to openedCards list and check if cards are a match or not
 	flippedCard.push(this);
 	
 	if(flippedCard.length === 2){
@@ -142,7 +147,7 @@ function displayCard() {
 		
 };
 
-
+//function for when cards match
 function matched() {
 	flippedCard[0].classList.add('match');
 	flippedCard[1].classList.add('match');
@@ -151,12 +156,14 @@ function matched() {
 	flippedCard = [];
 };
 
+//function to disable cards temporarily
 function disableCards() {
-		Array.prototype.filter.call(cards, function(card){
-        card.classList.add('disabled');
+	Array.prototype.filter.call(cards, function(card){
+		card.classList.add('disabled');
     });
 }
 
+//function for when cards do not match
 function unmatched() {
 	flippedCard[0].classList.add('unmatched');
 	flippedCard[1].classList.add('unmatched');
@@ -168,7 +175,8 @@ function unmatched() {
 			flippedCard = [];
 		}, 1000);	
 }
-	
+
+//function to enable cards and disable matched cards	
 function enable() {
 	Array.prototype.filter.call(cards, function(card){
         card.classList.remove('disabled');
@@ -178,6 +186,7 @@ function enable() {
     });
 }	
 
+//function for when all cards match and show total moves, time and star rating
 function congratulations() {
 	if (matchedCard.length === 16) {
 	
@@ -188,14 +197,15 @@ function congratulations() {
 		let starRating = document.querySelector('.stars').innerHTML;
 
 		document.getElementById("totalMove").innerHTML = moves;
-        document.getElementById("starRating").innerHTML = starRating;
-        document.getElementById("totalTime").innerHTML = finalTime;
+		document.getElementById("starRating").innerHTML = starRating;
+		document.getElementById("totalTime").innerHTML = finalTime;
 
         //closeicon on modal
         closeModal();
     };
 }
 
+//function to close icon on the modal
 function closeModal(){
     closeicon.addEventListener("click", function(event){
         modal.classList.remove("show");
@@ -208,10 +218,10 @@ function playAgain(){
     modal.classList.remove("show");
     startGame();
 }
-	
+
+//add event listeners to cards	
 for (let i = 0; i < cards.length; i++) {
 	card = cards[i];
 	card.addEventListener('click', displayCard);
-	//card.addEventListener('click', checkForMatch);
 	card.addEventListener('click', congratulations);
 };
