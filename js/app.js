@@ -1,6 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
+ let cardsMatched = 0;
 let card = document.getElementsByClassName("card");
 let cards = [...card] 
 let moves = 0;
@@ -13,6 +14,7 @@ var timer = document.querySelector('.timer');
 const stars = document.querySelectorAll('.fa-star');
 let modal = document.getElementById('myModal');
 let closeicon = document.querySelector('.close');
+let restartButton = document.querySelectorAll('.restart');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -35,7 +37,8 @@ function shuffle(array) {
     return array;
 }
 
-document.body.onload = startGame();
+//document.body.onload = startGame();
+window.addEventListener('load', startGame())
 
 
 /*
@@ -51,7 +54,7 @@ document.body.onload = startGame();
 
 function startGame() {
 	cards = shuffle(cards);
- 	for(var i = 0; i < cards.length; i++) {
+ 	for(let i = 0; i < cards.length; i++) {
  		deck.innerHTML = '';
  		[].forEach.call(cards, function(item) {
  			deck.appendChild(item);
@@ -61,7 +64,7 @@ function startGame() {
 
  	//reset moves
  	moves = 0;
- 	counter.innerHTML = moves;
+ 	counter.innerHTML=moves;
 
  	//reset timer
  	second = 0;
@@ -71,7 +74,7 @@ function startGame() {
  	clearInterval(interval);
 
  	//reset ratings
- 	for (var i = 0; i < stars.length; i++) {
+ 	for (let i = 0; i < stars.length; i++) {
  		stars[i].style.visibility = 'visible';
  	}
 }
@@ -121,23 +124,24 @@ function startTime() {
  }
 
 function displayCard() {
-	this.classList.toggle('show');
-	this.classList.toggle('open');	
-};
-
-
-function checkForMatch() {
+	this.classList.add('show');
+	this.classList.add('open');
+	this.classList.add('disabled');
 	flippedCard.push(this);
-	if (flippedCard.length === 2) {
+	
+	if(flippedCard.length === 2){
 		moveCounter();
-		if (flippedCard[0].type === flippedCard[1].type){
+
+		if (flippedCard[0].innerHTML === flippedCard[1].innerHTML){
 			matched();
 		}
 		else {
 			unmatched();
 		}
 	}
+		
 };
+
 
 function matched() {
 	flippedCard[0].classList.add('match');
@@ -158,8 +162,8 @@ function unmatched() {
 	flippedCard[1].classList.add('unmatched');
 	disableCards();
 		setTimeout (function(){
-			flippedCard[0].classList.remove('show', 'open', 'unmatched');
-			flippedCard[1].classList.remove('show', 'open', 'unmatched');
+			flippedCard[0].classList.remove('show', 'open', 'unmatched', 'disabled');
+			flippedCard[1].classList.remove('show', 'open', 'unmatched', 'disabled');
 			enable();
 			flippedCard = [];
 		}, 1000);	
@@ -168,19 +172,20 @@ function unmatched() {
 function enable() {
 	Array.prototype.filter.call(cards, function(card){
         card.classList.remove('disabled');
-        for(var i = 0; i < matchedCard.length; i++){
+        for(let i = 0; i < matchedCard.length; i++){
             matchedCard[i].classList.add("disabled");
         }
     });
 }	
 
 function congratulations() {
-	if (matchedCard.length == 16) {
+	if (matchedCard.length === 16) {
+	
 		clearInterval(interval);
 		finalTime = timer.innerHTML;
 
 		modal.classList.add('show');
-		var starRating = document.querySelector('.stars').innerHTML;
+		let starRating = document.querySelector('.stars').innerHTML;
 
 		document.getElementById("totalMove").innerHTML = moves;
         document.getElementById("starRating").innerHTML = starRating;
@@ -207,6 +212,6 @@ function playAgain(){
 for (let i = 0; i < cards.length; i++) {
 	card = cards[i];
 	card.addEventListener('click', displayCard);
-	card.addEventListener('click', checkForMatch);
+	//card.addEventListener('click', checkForMatch);
 	card.addEventListener('click', congratulations);
 };
