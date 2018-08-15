@@ -13,6 +13,7 @@ var timer = document.querySelector('.timer');
 const stars = document.querySelectorAll('.fa-star');
 let modal = document.getElementById('myModal');
 let closeicon = document.querySelector('.close');
+let cardMatched = 0;
 
 /*
  * Display the cards on the page
@@ -59,7 +60,7 @@ function startGame() {
  		[].forEach.call(cards, function(item) {
  			deck.appendChild(item);
  		});
- 		cards[i].classList.remove('show', 'open', 'match', 'disabled')
+ 		cards[i].classList.remove('show', 'open', 'match', 'disabled');
  	}
 
  	//reset moves
@@ -67,9 +68,6 @@ function startGame() {
  	counter.innerHTML=moves;
 
  	//reset timer
- 	second = 0;
- 	minute = 0;
- 	hour = 0;
  	timer.innerHTML = '0 hrs 0 mins 0 secs';
  	clearInterval(interval);
 
@@ -127,9 +125,9 @@ function startTime() {
 
 //open and show class to display cards
 function displayCard() {
-	this.classList.add('show');
-	this.classList.add('open');
-	this.classList.add('disabled');
+	this.classList.toggle('show');
+	this.classList.toggle('open');
+	this.classList.toggle('disabled');
 	
 	//add opened cards to openedCards list and check if cards are a match or not
 	flippedCard.push(this);
@@ -139,6 +137,7 @@ function displayCard() {
 
 		if (flippedCard[0].innerHTML === flippedCard[1].innerHTML){
 			matched();
+			cardMatched++;
 		}
 		else {
 			unmatched();
@@ -188,8 +187,8 @@ function enable() {
 
 //function for when all cards match and show total moves, time and star rating
 function congratulations() {
-	if (matchedCard.length === 16) {
-	
+	//if (matchedCard.length === 16) {
+	if (cardMatched === 8) {
 		clearInterval(interval);
 		finalTime = timer.innerHTML;
 
@@ -200,8 +199,9 @@ function congratulations() {
 		document.getElementById("starRating").innerHTML = starRating;
 		document.getElementById("totalTime").innerHTML = finalTime;
 
-        //closeicon on modal
-        closeModal();
+    	//closeicon on modal
+    	closeModal();
+    	cardMatched = 0;
     };
 }
 
