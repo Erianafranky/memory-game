@@ -54,14 +54,18 @@ document.body.onload = startGame();
 
 //Start a new game
 function startGame() {
+
 	cards = shuffle(cards);
+
  	for(let i = 0; i < cards.length; i++) {
  		deck.innerHTML = '';
  		[].forEach.call(cards, function(item) {
  			deck.appendChild(item);
  		});
  		cards[i].classList.remove('show', 'open', 'match', 'disabled');
+ 		flippedCard = [];
  	}
+
 
  	//reset moves
  	moves = 0;
@@ -76,6 +80,7 @@ function startGame() {
  		stars[i].style.visibility = 'visible';
  	}
 }
+
 
 //counting the player's moves
 function moveCounter() {
@@ -124,7 +129,9 @@ function startTime() {
  }
 
 //open and show class to display cards
+
 function displayCard() {
+
 	this.classList.toggle('show');
 	this.classList.toggle('open');
 	this.classList.toggle('disabled');
@@ -142,8 +149,7 @@ function displayCard() {
 		else {
 			unmatched();
 		}
-	}
-		
+	}	
 };
 
 //function for when cards match
